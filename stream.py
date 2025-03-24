@@ -8,6 +8,8 @@ from nltk.corpus import stopwords
 import nltk
 import stanza
 
+nltk.download("stopwords")
+
 stop_words_fr = stopwords.words('french')
 
 def normalize(text):
