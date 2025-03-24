@@ -32,7 +32,7 @@ def vectorize(text):
     vect_selector = selector.transform(vect_text)
     return vect_selector
 
-st.markdown("<h2 style='text-align: center; font-weight: bold;'> 📧Détection d'E-mail SPAM et NON SPAM📧</h2>", unsafe_allow_html=True)
+st.markdown("<h3 style='text-align: center; font-weight: bold;'> 📧Détection d'E-mail SPAM et NON SPAM📧</h3>", unsafe_allow_html=True)
 st.markdown(" ##### Entrez votre E-mail ici :")
 email = st.text_area("", height = 275, placeholder="Entrez votre E-mail...")
 
@@ -43,7 +43,7 @@ st.markdown("""
             justify-content: center;
         }
         div[data-testid="stButton"] > button {
-            width: 30% ;
+            width: 50% ;
             height: 50px; 
         }
     </style>
