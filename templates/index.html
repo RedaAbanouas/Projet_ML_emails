@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+
+    <title>E-mail Detection System</title>
+</head>
+<body class="{% if prediction == 'SPAM' %}spam-bg{% elif prediction == 'NON SPAM' %}non-spam-bg{% endif %}">
+<div class="title-container">
+    <div class="title">
+        <h1>Détection d'E-mail Malveillant
+        Par Apprentissage Automatique</h1>
+    </div>
+    <div class="section"></div>
+</div>
+<form action="/predict" method="post">
+
+    <div class="info">
+        <label for="msg">Entrez votre E-mail ici</label>
+        <textarea name="text_data" cols="40" rows="5" id="msg" placeholder="Entrez votre E-mail ici" required></textarea>
+        <button type="submit" id="submit">Prédire</button>
+        
+    </div>
+</form>
+{% if prediction %}
+<div class="ans-container">
+<div class="pred-div fade-in">
+    <div class="accuracy">
+        Précision
+          <p> 97.56 %</p>
+    </div>
+    <div class="pred-output">
+        {% if prediction == "SPAM" %}
+        SPAM <br>
+        <img class="warning" src="{{ url_for('static', filename='warning.svg') }}" alt="">
+        {% endif %}
+        {% if prediction == "NON SPAM" %}
+        NON SPAM <br>
+        <img class="check" src="{{ url_for('static', filename='check.svg') }}" alt="">
+        {% endif %}
+    </div>
+</div>
+</div>
+{% endif %}
+</body>
+</html>
