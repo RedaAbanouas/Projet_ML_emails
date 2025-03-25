@@ -8,6 +8,25 @@ from nltk.corpus import stopwords
 import nltk
 import stanza
 
+st.markdown(
+    """
+    <style>
+        :root {
+            --background-color: #0e1117;
+            --text-color: #ffffff;
+        }
+        body {
+            background-color: var(--background-color) !important;
+            color: var(--text-color) !important;
+        }
+        div[data-testid="stSidebar"] {
+            background-color: #161a23 !important;
+        }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 nltk.download("stopwords")
 
 stop_words_fr = stopwords.words('french')
@@ -50,12 +69,12 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 if st.button("**Prédiction**", type="primary") :
-    if email == "":
-        st.write("dghfghgft")
+    if not email.strip():
+        st.markdown("### **Veuillez entrer un E-mail valide.**")
     else :
         vect = vectorize(email)
         pred = model.predict(vect)[0]
-        if pred == 'Spam' :
+        if pred == 1:
             st.markdown("<br><br>", unsafe_allow_html=True)
 
             st.markdown("""
@@ -71,15 +90,15 @@ if st.button("**Prédiction**", type="primary") :
                     }
                     
                 </style>
-                <h3 class="fade-in" style='text-align: center; font-weight: bold; font-size: 3rem'> ❌ SPAM  </h3>
+                <h3 class="fade-in" style='text-align: center; font-weight: bold; font-size: 3rem'>❌ SPAM</h3>
             """, unsafe_allow_html=True)
             st.markdown(
-                f"""
+                """
                 <style>
-                div[data-testid="stApp"] {{
+                div[data-testid="stApp"] {
                     background-color: #aa3232 !important;
                     transition: background-color 0.5s linear;
-                }}
+                }
                 </style>
                 """,
                 unsafe_allow_html=True
@@ -87,7 +106,7 @@ if st.button("**Prédiction**", type="primary") :
             
 
   
-        elif pred == "Non spam":
+        elif pred == 0:
             st.markdown("<br><br>", unsafe_allow_html=True)
 
             st.markdown("""
@@ -101,25 +120,18 @@ if st.button("**Prédiction**", type="primary") :
                         from { opacity: 0; }
                         to { opacity: 1; }
                     }
-                    body{
-                        animation: bgnonspam 0.5s forwards;
-                    }
-                        
-                    @keyframes bgnonspam {
-                        from { background-color: #ffffff; }
-                        to { background-color: #ff9a9e; }
-                    }
+                   
                 </style>
-                <h3 class="fade-in" style='text-align: center; font-weight: bold; font-size: 3rem'> ✅ NON SPAM  </h3>
+                <h3 class="fade-in" style='text-align: center; font-weight: bold; font-size: 3rem'>✅ NON SPAM</h3>
             """, unsafe_allow_html=True)
 
             st.markdown(
-                f"""
+                """
                 <style>
-                div[data-testid="stApp"] {{
+                div[data-testid="stApp"] {
                     background-color: #149c1f !important;
                     transition: background-color 0.5s linear;
-                }}
+                }
                 </style>
                 """,
                 unsafe_allow_html=True
