@@ -9,9 +9,9 @@ import stanza
 nltk.download("stopwords")
 
 stop_words_fr = stopwords.words('french')
+nlp = stanza.Pipeline("fr", processors="tokenize,mwt,pos,lemma")
 
 def normalize(text):
-    nlp = stanza.Pipeline("fr", processors="tokenize,mwt,pos,lemma")
     doc = nlp(text)
     lemmatized_filtered_text = [word.lemma.lower() for sentence in doc.sentences for word in sentence.words if word.lemma.lower() not in stop_words_fr]
     return " ".join(lemmatized_filtered_text)
@@ -61,4 +61,4 @@ def predict():
 
 
 if __name__ == "__main__" :
-    app.run(host='127.0.0.1', port='8000', debug=False)
+    app.run(host='127.0.0.1', port='8000', debug=True)
