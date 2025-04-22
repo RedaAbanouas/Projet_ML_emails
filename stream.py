@@ -37,29 +37,33 @@ def normalize(text):
     lemmatized_filtered_text = [word.lemma.lower() for sentence in doc.sentences for word in sentence.words if word.lemma.lower() not in stop_words_fr]
     return " ".join(lemmatized_filtered_text)
 
-with open('naivebayes.pkl', 'rb') as file:
-    model = pickle.load(file)
+with open('svm.pkl', 'rb') as file:
+    svm = pickle.load(file)
 
-with open("vectorizer_selector.pkl", "rb") as f:
-    vectorizer, selector = pickle.load(f)
+with open('naivebayes.pkl', 'rb') as file:
+    nb = pickle.load(file)
+
+with open("vectorizer.pkl", "rb") as file:
+    vectorizer= pickle.load(file)
 
 bdd = pd.read_excel("BDD_normalisé.xlsx")
 
 def vectorize(text):
     text = normalize(text)
     vect_text = vectorizer.transform([text])
-    vect_selector = selector.transform(vect_text)
-    return vect_selector
+    return vect_text
+
 
 st.markdown("<h3 style='text-align: center; font-weight: bold;'> 📧Détection d'E-mail SPAM et NON SPAM📧</h3>", unsafe_allow_html=True)
-st.markdown(" ##### Entrez votre E-mail ici :")
-email = st.text_area("", height = 275, placeholder="Entrez votre E-mail...")
+model_choice = st.radio("",["SVM", "Naïve Bayes"], horizontal=True)
+st.markdown(" ##### Entrez votre E-mail ici ")
+email = st.text_area("", height = 240, placeholder="Entrez votre E-mail...")
 
 st.markdown("""
     <style>
         div[data-testid="stButton"] {
             display: flex;
-            justify-content: center;
+            justify-content: center;                      
         }
         div[data-testid="stButton"] > button {
             width: 50% ;
@@ -73,7 +77,10 @@ if st.button("**Prédiction**", type="primary") :
         st.markdown("### **Veuillez entrer un E-mail valide.**")
     else :
         vect = vectorize(email)
-        pred = model.predict(vect)[0]
+        if model_choice == "SVM" :
+            pred = svm.predict(vect)[0]
+        else :
+            pred = nb.predict(vect)[0]
         if pred == 1:
             st.markdown("<br><br>", unsafe_allow_html=True)
 

@@ -3,3 +3,4 @@ pandas
 stanza
 nltk
 openpyxl
+flask

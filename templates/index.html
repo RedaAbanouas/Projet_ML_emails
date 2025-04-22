@@ -3,52 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>E-mail AI Detection System</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="icon" type="image/png" href="{{ url_for('static', filename='icon.png') }}">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
-
-    <title>E-mail Detection System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai+2:wght@400..800&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
 </head>
-<body class="{% if prediction == 'SPAM' %}spam-bg{% elif prediction == 'NON SPAM' %}non-spam-bg{% endif %}">
-<div class="title-container">
-    <div class="title">
-        <h1>Détection d'E-mail Malveillant
-        Par Apprentissage Automatique</h1>
-    </div>
-    <div class="section"></div>
-</div>
-<form action="/predict" method="post">
+<body>
+    <div class="main">
+        <div class="top">
+        <div class="left-section">
+            <div class="left-title">
+                <i class="ri-robot-2-fill"></i>
+                <span>Model Selection</span>
+            </div>
+          
 
-    <div class="info">
-        <label for="msg">Entrez votre E-mail ici</label>
-        <textarea name="text_data" cols="40" rows="5" id="msg" placeholder="Entrez votre E-mail ici" required></textarea>
-        <button type="submit" id="submit">Prédire</button>
-        
+            <form class="buttons">
+                <input type="radio" id="svm" name="model" value="svm" required>
+                <label for="svm" class="btn"><i class="ri-cpu-line"></i> <span>SVM</span></label>
+           
+                <input type="radio" id="nb" name="model" value="nb" required>
+                <label for="nb" class="btn"><i class="ri-cpu-line"></i> <span>N.Bayes</span></label>
+           
+            </form>
+
+            
+           
+                
+        </div>
+        <div class="right-section">
+            <div class="right-header">
+                <i class="ri-mail-send-fill"></i>
+                <h1>E-mail <span>AI</span> Detection System</h1>
+            </div>
+            <div class="center">
+    
+             
+                        <form class="input-field">
+                            <label for="email">Enter your E-mail here :</label>
+                            <textarea id="email" name="email" rows="10" cols="30" placeholder="Paste your E-mail here..."></textarea>
+                        </form>
+                   
+                    
+                <button id="predict-btn" class="pred-area">
+                    <i class="ri-arrow-right-circle-fill"></i>
+                </button>
+            </div>
+        </div>
     </div>
-</form>
-{% if prediction %}
-<div class="ans-container">
-<div class="pred-div fade-in">
-    <div class="accuracy">
-        Précision
-          <p> 97.56 %</p>
+
+
+
+    <div class="footer">
+        <div class="made-by">
+            <span>Made By :</span>
+            <div class="user">
+                <i class="ri-account-circle-fill"></i>
+                <span>Harrat Hafsa</span>
+            </div>
+            <div class="user">
+                <i class="ri-account-circle-fill"></i>
+                <span>Abanouas Reda</span>
+            </div>
+            <div class="user">
+                <i class="ri-account-circle-fill"></i>
+                <span>Nadif Loubna</span>
+            </div>
+            <div class="user">
+                <i class="ri-account-circle-fill"></i>
+                <span>Makhloufi Oumaima</span>
+            </div>
+        </div>
+        <div class="pred-res">
+            <div class="pred-label">
+            <span>Prediction</span>
+            <i class="ri-arrow-right-box-fill"></i>
+            </div>
+            <div class="pred-img"></div>
+        </div>
     </div>
-    <div class="pred-output">
-        {% if prediction == "SPAM" %}
-        SPAM <br>
-        <img class="warning" src="{{ url_for('static', filename='warning.svg') }}" alt="">
-        {% endif %}
-        {% if prediction == "NON SPAM" %}
-        NON SPAM <br>
-        <img class="check" src="{{ url_for('static', filename='check.svg') }}" alt="">
-        {% endif %}
     </div>
-</div>
-</div>
-{% endif %}
 </body>
+
+<script>
+    document.getElementById('predict-btn').addEventListener('click', async (event) => {
+        event.preventDefault(); 
+
+    
+        const model = document.querySelector('input[name="model"]:checked')?.value;
+
+     
+        const email = document.getElementById('email').value;
+
+
+        if (!model || !email) {
+            alert('Please select a model and e-mail.');
+            return;
+        }
+
+ 
+        const response = await fetch('/predict', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `model=${encodeURIComponent(model)}&email=${encodeURIComponent(email)}`,
+        });
+
+
+        const result = await response.json();
+        const resultDiv = document.querySelector('.pred-img');
+        const body = document.querySelector('body');
+        const predres = document.querySelector('.pred-res');
+        const predLabel = document.querySelector('.pred-label');
+
+        if (response.ok) {
+            if (result.prediction === 'SPAM') {
+                body.classList.add('spam-bg');
+                body.classList.remove('not-spam-bg');
+
+                predres.classList.add('spam-predres');
+                predres.classList.remove('not-spam-predres');
+
+                predLabel.classList.add('spam-pred-label');
+                predLabel.classList.remove('not-spam-pred-label');
+
+                resultDiv.innerHTML = `<div class="pred-output spam-output"> <i class="ri-mail-close-fill" style="font-size: 5vw"></i> <span>SPAM</span> </div>`;
+            } else if (result.prediction === 'NOT SPAM') {
+                body.classList.remove('spam-bg');
+                body.classList.add('not-spam-bg');
+
+                predres.classList.remove('spam-predres');
+                predres.classList.add('not-spam-predres');
+
+                predLabel.classList.remove('spam-pred-label');
+                predLabel.classList.add('not-spam-pred-label');
+
+                resultDiv.innerHTML = `<div class="pred-output not-spam-output"> <i class="ri-mail-check-fill" style="font-size: 5vw"></i> <span>NOT SPAM</span> </div>`;
+            } 
+
+            setTimeout(() => {
+                const predOutput = document.querySelector('.pred-output');
+                if (predOutput) {
+                    predOutput.classList.add('visible');
+                }
+            }, 100);
+
+
+        } else {
+            resultDiv.innerHTML = `<div class="pred-output"><span>Error: ${result.error}</span></div>`;
+        }
+    });
+</script>
+
+
 </html>
+  
