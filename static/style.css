@@ -1,3 +1,16 @@
+:root{
+    --bg-dark: #292929;
+    --container-dark: #121212;
+    --window-dark: #292929;
+    --text-color-dark: #ecf9ff;
+
+}
+
+.dark-mode-container{
+    background-color: var(--container-dark);
+}
+
+
 body{
     background-color: #F3F0FF;
     font-family: "Baloo Bhai 2", sans-serif;
@@ -9,12 +22,58 @@ body{
     justify-content: center;
     align-items: center;
     box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+}
+.dark{
+    background-color: var(--bg-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark #container{
+    background-color: var(--container-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark #window{
+    background-color: var(--window-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark #predict-btn{
+    background-color: var(--window-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark #predict-btn:hover{
+    background-color: #fddc62;
+    transition: all 0.1s ease-in-out;
+    .ri-arrow-right-circle-fill{
+        color: black;
+        transition: all 0.1s ease-in-out;
+    }
+}
+.dark #text{
+    color: var(--text-color-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark .ri-arrow-right-circle-fill{
+    color: var(--text-color-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark .right-header i, .dark .right-header h1, .dark .right-header h1 span{
+    color: var(--text-color-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark .made-by{
+    color: var(--text-color-dark);
+    transition: all 0.3s ease-in-out;
+}
+.dark .btn{
+    background-color: rgb(105, 105, 105);
+    color: var(--container-dark);
+    transition: all 0.3s ease-in-out;
 }
 
 .main{
     width: 70%;
     aspect-ratio: 16/9;
-    background-color: #FFFFFF;
+    background-color: #ffffff;
     box-shadow: 0px 4px 40px rgba(0, 0, 0, 0.3);
     display: flex;
     flex-direction: column;
@@ -23,6 +82,7 @@ body{
 
     box-sizing: border-box;
     padding: 1.25vw;
+    transition: all 0.3s ease-in-out;
 }
 .top{
     width: 100%;
@@ -31,6 +91,7 @@ body{
     justify-content: center;
     box-sizing: border-box;
     gap: 1.25vw;
+    transition: all 0.3s ease-in-out;
 }
 .left-section{
     background-color: #F3F0FF;
@@ -45,7 +106,7 @@ body{
     box-sizing: border-box;
     padding: 1.5vh 0;
     color: #5F33E1;
-
+    transition: all 0.3s ease-in-out;
 
     
 }
@@ -60,12 +121,14 @@ body{
     font-size: 1.5vw;
     font-weight: 800;
     color: #3b1aa0;
+    transition: all 0.3s ease-in-out;
 }
 
 .ri-robot-2-fill{
     font-size: 3vw;
     padding-bottom: 5px;
     color: #8764FF;
+    transition: all 0.3s ease-in-out;
 }
 .ri-cpu-line{
     font-size: 3vw;
@@ -97,7 +160,7 @@ body{
     flex-direction: row;
     justify-content: space-evenly;
     align-items: center;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.3s ease-in-out;
     border-radius: 2vw;
     cursor: pointer;
     box-sizing: border-box;
@@ -119,6 +182,7 @@ input[type="radio"]:checked + label{
 .btn:hover{
     background-color: #5F33E1;
     color: #FFFFFF;
+    transition: all 0.2s ease-in-out;
 }
 
 .right-section{
@@ -128,7 +192,6 @@ input[type="radio"]:checked + label{
     flex-direction: column;
     justify-content: center;
     box-sizing: border-box;
-    background-color: #ffffff;
     gap: 1.25vw;
 }
 .right-header{
@@ -141,20 +204,24 @@ input[type="radio"]:checked + label{
     padding: 1vw 1.5vw;
     align-items: center;
     box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
 }
 .right-header h1{
     font-size: 1.5vw;
     font-weight: 800;
     color: #3b1aa0;
     text-align: center;
+    transition: all 0.3s ease-in-out;
 }
 
 .right-header h1 span{
     color: #6e43f0;
+    transition: all 0.3s ease-in-out;
 }
 .ri-mail-send-fill{
     font-size: 2.75vw;
     color: #3b1aa0;
+    transition: all 0.3s ease-in-out;
 }
 .center{
     width: 100%;
@@ -178,6 +245,7 @@ input[type="radio"]:checked + label{
     border-radius: 1vw;
     padding: 1.25vw;
     gap: 0.5vw;
+    transition: all 0.3s ease-in-out;
 }
 .input-field label{
     font-size: 1vw;
@@ -199,7 +267,7 @@ input[type="radio"]:checked + label{
 }
 .pred-area{
     width: 10%;
-    height: 100%;
+    height: 60%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -208,14 +276,16 @@ input[type="radio"]:checked + label{
     border-radius: 1vw;
     cursor: pointer;
     border: none;
-    transition: all 0.1s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 .pred-area:hover{
     background-color: #fddc62;
+    transition: all 0.2s ease-in-out;
 }
 .ri-arrow-right-circle-fill{
     font-size: 4vw;
     color: #24252C;
+    transition: all 0.3s ease-in-out;
 }
 
 .footer{
@@ -240,6 +310,7 @@ input[type="radio"]:checked + label{
     justify-content: space-evenly;
     padding: 1.25vw;
     color: #423506;
+    transition: all 0.3s ease-in-out;
 }
 .made-by span{
     font-size: 1.5vw;
@@ -267,6 +338,7 @@ input[type="radio"]:checked + label{
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease-in-out;
 
 }
 .pred-label{
@@ -349,4 +421,34 @@ input[type="radio"]:checked + label{
 
 .not-spam-output { 
     color: #ccffcc; 
+}
+
+
+
+.mode{
+    height: 100%;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    box-sizing: border-box;
+    font-size: 1.25vw;
+    font-weight: 800;
+    gap: 0.5vw;
+}
+.mode button{
+    border: none;
+    border-radius: 50%;
+    aspect-ratio: 1/1;
+    width: 2.4vw;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mode .mode-icon{
+    color: #3b1aa0;
+    font-size: 2.75vw;
+    
 }
