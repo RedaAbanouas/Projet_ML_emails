@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import pickle
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords
 import nltk
 import stanza
@@ -27,7 +25,7 @@ with open("vectorizer.pkl", "rb") as file:
 
 app = Flask(__name__)
 
-bdd = pd.read_excel("BDD_normalisé.xlsx")
+
 
 
 def vectorize(text):
