@@ -30,9 +30,6 @@ with open("vectorizer.pkl", "rb") as file:
 
 app = Flask(__name__)
 
-bdd = pd.read_excel("BDD_normalisé.xlsx")
-
-
 def vectorize(text):
     text = normalize(text)
     vect_text = vectorizer.transform([text])
