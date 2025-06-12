@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request, jsonify
 import pickle
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
 from nltk.corpus import stopwords
 import nltk
 import stanza
@@ -16,6 +14,11 @@ def normalize(text):
     lemmatized_filtered_text = [word.lemma.lower() for sentence in doc.sentences for word in sentence.words if word.lemma.lower() not in stop_words_fr]
     return " ".join(lemmatized_filtered_text)
 
+def vectorize(text):
+    text = normalize(text)
+    vect_text = vectorizer.transform([text])
+    return vect_text
+
 with open('svm.pkl', 'rb') as file:
     svm = pickle.load(file)
 
@@ -27,13 +30,6 @@ with open("vectorizer.pkl", "rb") as file:
 
 app = Flask(__name__)
 
-bdd = pd.read_excel("BDD_normalisé.xlsx")
-
-
-def vectorize(text):
-    text = normalize(text)
-    vect_text = vectorizer.transform([text])
-    return vect_text
 
 @app.route("/")
 def index():
