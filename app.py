@@ -4,6 +4,8 @@ from nltk.corpus import stopwords
 import nltk
 import stanza
 
+app = Flask(__name__)
+
 nltk.download("stopwords")
 
 stop_words_fr = stopwords.words('french')
@@ -27,13 +29,6 @@ with open('naivebayes.pkl', 'rb') as file:
 
 with open("vectorizer.pkl", "rb") as file:
     vectorizer= pickle.load(file)
-
-app = Flask(__name__)
-
-def vectorize(text):
-    text = normalize(text)
-    vect_text = vectorizer.transform([text])
-    return vect_text
 
 @app.route("/")
 def index():
